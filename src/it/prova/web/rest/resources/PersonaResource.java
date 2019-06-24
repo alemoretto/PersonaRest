@@ -44,7 +44,7 @@ public class PersonaResource {
 
 	@POST
 	@Produces(MediaType.APPLICATION_JSON)
-	public Response insertiNuovaPersona(Persona personaInput) {
+	public Response insertNuovaPersona(Persona personaInput) {
 		LOGGER.info("Verbo Http.........................." + request.getMethod());
 		personaDaoMock.insert(personaInput);
 		return Response.status(200).entity(personaInput).build();
@@ -61,9 +61,18 @@ public class PersonaResource {
 	@GET
 	@Path("/search")
 	@Produces(MediaType.APPLICATION_JSON)
-	public Response searchPersona(@QueryParam("nome") String nome, @QueryParam("cognome") String cognome, @QueryParam("eta") String nome) {
+	public Response searchPersona(@QueryParam("nome") String nome, @QueryParam("cognome") String cognome, @QueryParam("eta") String eta) {
 		LOGGER.info("Verbo Http.........................." + request.getMethod());
-		List<Persona> result = personaDaoMock.findByFields(nome, cognome, eta);
+		List<Persona> result = personaDaoMock.findByFields(nome, cognome, Integer.parseInt(eta));
+		return Response.status(200).entity(result).build();
+	}
+	
+	@GET
+	@Path("/searchMaggiorenni")
+	@Produces(MediaType.APPLICATION_JSON)
+	public Response searchMaggiorenni() {
+		LOGGER.info("Verbo Http.........................." + request.getMethod());
+		List<Persona> result = personaDaoMock.findAllMaggiorenni();
 		return Response.status(200).entity(result).build();
 	}
 	

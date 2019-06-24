@@ -1,7 +1,9 @@
 package it.prova.dao;
 
 import java.util.ArrayList;
+import java.util.Collections;
 import java.util.List;
+import java.util.stream.Collectors;
 
 import it.prova.model.Persona;
 
@@ -41,6 +43,10 @@ public class PersonaDAOMock {
 		return DB_MOCK;
 	}
 
+	public List<Persona> findAllMaggiorenni() {
+		return DB_MOCK.stream().filter(p -> p.getEta() >= 18).collect(Collectors.toList());
+	}
+	
 	public List<Persona> findByFields(String nome, String cognome, Integer eta) {
 		List<Persona> result = new ArrayList<>();
 
